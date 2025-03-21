@@ -1,38 +1,37 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class trackingplayer : MonoBehaviour
 {
-    public Transform headTransform; //  the VR Camera (HMD)
-    public Transform leftHandTransform; //  the Left Hand Controller
-    public Transform rightHandTransform; // the Right Hand Controller
+    public Transform headTransform; // The VR Camera (HMD)
+    public Transform leftHandTransform; // Left Hand Controller
+    public Transform rightHandTransform; // Right Hand Controller
 
     private Vector3 lastHeadPosition;
     private Vector3 lastLeftHandPosition;
     private Vector3 lastRightHandPosition;
 
-    public bool isRedLight = false; // Change this when switching to "Red Light"
-   // public bool isFacingPlayer = false; // Whether the doll is facing the player
+    public bool isRedLight = false; // True when tracking player movement
 
     void Start()
     {
-        lastHeadPosition = headTransform.position;
-        lastLeftHandPosition = leftHandTransform.position;
-        lastRightHandPosition = rightHandTransform.position;
+        //Debug.Log("Tracking System Initialized.");
+        ResetLastKnownPositions(); // Set initial positions
     }
 
     void Update()
     {
-        // Check if the doll is facing the player during Red Light
-        if (isRedLight )
+      //  Debug.Log("Update Running - isRedLight: " + isRedLight);
+
+        if (isRedLight)
         {
+          //  Debug.Log("Tracking is ACTIVE.");
+
             if (HasMoved(headTransform, ref lastHeadPosition) ||
                 HasMoved(leftHandTransform, ref lastLeftHandPosition) ||
                 HasMoved(rightHandTransform, ref lastRightHandPosition))
             {
                 Debug.Log("Player Moved! Eliminated.");
-                // Handle elimination (e.g., game over, restart level)
+                // Handle player elimination (e.g., Game Over)
             }
         }
     }
@@ -48,4 +47,11 @@ public class trackingplayer : MonoBehaviour
         return false;
     }
 
+    public void ResetLastKnownPositions()
+    {
+        //Debug.Log("Resetting Player Position for Tracking.");
+        lastHeadPosition = headTransform.position;
+        lastLeftHandPosition = leftHandTransform.position;
+        lastRightHandPosition = rightHandTransform.position;
+    }
 }

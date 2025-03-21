@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 34309112}
   - component: {fileID: 34309111}
+  - component: {fileID: 34309113}
   m_Layer: 0
   m_Name: game manager
   m_TagString: Untagged
@@ -156,6 +157,10 @@ MonoBehaviour:
   tracker: {fileID: 470199627}
   greenLightDuration: 5
   redLightDuration: 5
+  dollAudio: {fileID: 2038114002}
+  redLightSong: {fileID: 8300000, guid: dfaf3c42fc4d90446aca7b030b5f72e8, type: 3}
+  rotatehead: {fileID: 34309113}
+  rotate: {fileID: 8300000, guid: 5fb42bb5ce859dd468351523e64d9158, type: 3}
 --- !u!4 &34309112
 Transform:
   m_ObjectHideFlags: 0
@@ -171,6 +176,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &34309113
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 34309110}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5fb42bb5ce859dd468351523e64d9158, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &394005755
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -715,11 +816,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -9147448770571930732, guid: 64cebdd86ced69544a589978154f1660, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -9147448770571930732, guid: 64cebdd86ced69544a589978154f1660, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -9147448770571930732, guid: 64cebdd86ced69544a589978154f1660, type: 3}
       propertyPath: m_LocalRotation.z
@@ -727,7 +828,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -9147448770571930732, guid: 64cebdd86ced69544a589978154f1660, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 64cebdd86ced69544a589978154f1660, type: 3}
       propertyPath: m_LocalScale.x
@@ -1318,9 +1419,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   headTransform: {fileID: 1574539102}
   rotationSpeed: 2
-  greenLightRotation: {x: 0, y: 180, z: 0}
-  redLightRotation: {x: 0, y: 0, z: 0}
-  isFacingPlayer: 0
+  greenLightRotation: {x: 0, y: 0, z: 0}
+  redLightRotation: {x: 0, y: 180, z: 0}
 --- !u!82 &2038114002
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1332,7 +1432,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dfaf3c42fc4d90446aca7b030b5f72e8, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
