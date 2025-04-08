@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28584a560ed76e64fb307643cb15ed8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  finishLine: {fileID: 0}
+  finishLine: {fileID: 1147320164335081658, guid: ccb22054043b3bc4a93dce0785f93a25, type: 3}
 --- !u!1001 &5881382106413573560
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,61 +1,39 @@
 using UnityEngine;
-using UnityEngine.AI;
-using System.Collections.Generic;
 
 public class NPCSpawner : MonoBehaviour
 {
-    public GameObject npcPrefab;
-    public Transform spawnArea;
-    public int npcCount = 10;
-    public float minSpawnDistance = 2.5f; // Minimum distance between NPCs
+    public GameObject npcPrefab;            // Prefab to spawn
+    public Transform spawnArea;             // Start position for the grid
+    public int npcCount = 30;               // Total NPCs to spawn
+    public float spacing = 2f;              // Distance between NPCs in the grid
 
-    private List<Vector3> spawnedPositions = new List<Vector3>(); // Store spawned NPC positions
+    public float minSpeed = 1.5f;           // Minimum NPC movement speed
+    public float maxSpeed = 3.5f;           // Maximum NPC movement speed
 
     void Start()
     {
-        for (int i = 0; i < npcCount; i++)
+        int rowCount = Mathf.CeilToInt(Mathf.Sqrt(npcCount));
+        int colCount = Mathf.CeilToInt((float)npcCount / rowCount);
+
+        Vector3 startPos = spawnArea.position;
+
+        int spawned = 0;
+        for (int row = 0; row < rowCount && spawned < npcCount; row++)
         {
-            Vector3 spawnPosition = GetValidNavMeshPosition();
-            GameObject npc = Instantiate(npcPrefab, spawnPosition, Quaternion.identity);
-            spawnedPositions.Add(spawnPosition); // Save position to check against future spawns
-        }
-    }
-
-    Vector3 GetValidNavMeshPosition()
-    {
-        Vector3 randomPosition;
-        NavMeshHit hit;
-        int maxAttempts = 100;
-        int attempts = 0;
-
-        do
-        {
-            randomPosition = spawnArea.position + new Vector3(
-                Random.Range(-20, 20),
-                0,
-                Random.Range(-20, 20)
-            );
-
-            attempts++;
-        }
-        while (!NavMesh.SamplePosition(randomPosition, out hit, 5f, NavMesh.AllAreas) ||
-               IsTooCloseToOthers(hit.position) && attempts < maxAttempts);
-
-        Debug.Log("NPC Spawned at: " + hit.position); // Debugging
-
-        return hit.position;
-    }
-
-
-    bool IsTooCloseToOthers(Vector3 position)
-    {
-        foreach (Vector3 existingPos in spawnedPositions)
-        {
-            if (Vector3.Distance(position, existingPos) < minSpawnDistance)
+            for (int col = 0; col < colCount && spawned < npcCount; col++)
             {
-                return true; // Position is too close to another NPC
+                Vector3 spawnPos = startPos + new Vector3(col * spacing, 0, row * spacing);
+                GameObject npc = Instantiate(npcPrefab, spawnPos, Quaternion.identity);
+
+                // Set a random speed if NPCMovement script exists
+                npcmvmnt npcMove = npc.GetComponent<npcmvmnt>();
+                if (npcMove != null)
+                {
+                    npcMove.speed = Random.Range(minSpeed, maxSpeed);
+                }
+
+                spawned++;
             }
         }
-        return false;
     }
 }

@@ -5,19 +5,34 @@ using UnityEngine.AI;
 
 public class npcmvmnt : MonoBehaviour
 {
+    public float speed; // This will be assigned by the spawner
+
     private NavMeshAgent agent;
-    public Transform finishLine;
-    // Start is called before the first frame update
+    public Vector3 targetPosition;
+
     void Start()
     {
-    agent = GetComponent<NavMeshAgent>();
-    agent.SetDestination(finishLine.position);
+        agent = GetComponent<NavMeshAgent>();
+        if (agent != null)
+        {
+            agent.speed = speed;
 
+            // Move forward toward a distant point
+            targetPosition = transform.position + transform.forward * 50f;
+            agent.SetDestination(targetPosition);
+        }
+        else
+        {
+            Debug.LogError("NavMeshAgent component is missing on NPC.");
+        }
     }
 
-// Update is called once per frame
-void Update()
+    void Update()
     {
-    
-}
+        // Optional: Stop when reaching destination
+       /* if (agent.remainingDistance <= agent.stoppingDistance && !agent.pathPending)
+        {
+            // You can add logic here if needed (like playing idle animation)
+        }*/
+    }
 }
