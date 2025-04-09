@@ -8,7 +8,7 @@ public class npcmvmnt : MonoBehaviour
     public float speed; // This will be assigned by the spawner
 
     private NavMeshAgent agent;
-    public Vector3 targetPosition;
+    public Transform targetPosition;
 
     void Start()
     {
@@ -18,8 +18,8 @@ public class npcmvmnt : MonoBehaviour
             agent.speed = speed;
 
             // Move forward toward a distant point
-            targetPosition = transform.position + transform.forward * 50f;
-            agent.SetDestination(targetPosition);
+            //targetPosition = transform.position + transform.forward * 50f;
+            agent.SetDestination(targetPosition.position);
         }
         else
         {
